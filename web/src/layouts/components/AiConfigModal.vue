@@ -191,11 +191,13 @@ const providerConfigs: Record<string, ProviderConfig[]> = {
         { id: 'getgoapi', name: 'NewRouter API', models: ['gemini-3-flash-preview', 'gpt-5.4'] },
         { id: 'gemini', name: 'Google Gemini', models: ['gemini-1.5-pro', 'gemini-3-flash-preview'] },
         { id: 'doubao', name: '火山引擎', models: ['doubao-pro-32k', 'doubao-lite-32k'] },
+        { id: 'agnes', name: 'Agnes AI', models: ['agnes-3.0-flash'] },
     ],
     image: [
         { id: 'volcengine', name: '火山引擎', models: ['doubao-seedream-4-5-251128', 'doubao-seedream-4-0-250828'] },
         { id: 'getgoapi', name: 'NewRouter API', models: ['doubao-seedream-4-5-251128', 'dall-e-3'] },
         { id: 'openai', name: 'OpenAI', models: ['dall-e-3'] },
+        { id: 'agnes', name: 'Agnes AI', models: ['agnes-image-2.5-flash'] },
     ],
     video: [
         { id: 'volces', name: '火山引擎', models: ['doubao-seedance-1-5-pro-251215'] },
@@ -206,6 +208,7 @@ const providerConfigs: Record<string, ProviderConfig[]> = {
         { id: 'pika', name: 'Pika', models: ['pika'] },
         { id: 'google', name: 'Google Veo', models: ['veo-3.1-fast-generate-001'] },
         { id: 'getgoapi', name: 'NewRouter API', models: ['doubao-seedance-1-5-pro-251215', 'sora-2', 'MiniMax-Hailuo-02'] },
+        { id: 'agnes', name: 'Agnes AI', models: ['agnes-video-2.5-flash'] },
     ],
 };
 
@@ -256,7 +259,7 @@ const handleTabChange = (value: AIServiceType) => {
 };
 
 const generateConfigName = (provider: string, serviceType: AIServiceType) => {
-    const providerNames: Record<string, string> = { getgoapi: 'GetGo', openai: 'OpenAI', gemini: 'Gemini', doubao: 'Volc', volces: 'Volc', volcengine: 'Volc' };
+    const providerNames: Record<string, string> = { getgoapi: 'GetGo', openai: 'OpenAI', gemini: 'Gemini', doubao: 'Volc', volces: 'Volc', volcengine: 'Volc', agnes: 'Agnes' };
     const serviceNames: Record<AIServiceType, string> = { text: '文本', image: '图片', video: '视频' };
     const randomNum = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
     return `${providerNames[provider] || provider}-${serviceNames[serviceType] || serviceType}-${randomNum}`;
@@ -297,11 +300,13 @@ const handleProviderChange = () => {
             getgoapi: 'https://www.zdom.cn/v1',
             gemini: 'https://generativelanguage.googleapis.com/v1beta',
             doubao: 'https://ark.cn-beijing.volces.com/api/v3',
+            agnes: 'https://api.agnes-ai.cn/v1',
         },
         image: {
             volcengine: 'https://ark.cn-beijing.volces.com/api/v3',
             getgoapi: 'https://www.zdom.cn/v1',
             openai: 'https://api.openai.com/v1',
+            agnes: 'https://api.agnes-ai.cn/v1',
         },
         video: {
             volces: 'https://ark.cn-beijing.volces.com/api/v3',
@@ -312,6 +317,7 @@ const handleProviderChange = () => {
             pika: 'https://api.pika.art/v1',
             google: 'https://generativelanguage.googleapis.com/v1beta',
             getgoapi: 'https://www.zdom.cn/v1',
+            agnes: 'https://api.agnes-ai.cn/v1',
         }
     };
 

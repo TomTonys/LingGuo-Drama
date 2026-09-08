@@ -924,7 +924,8 @@ const MODEL_CAPABILITY_MAP: Record<string, any> = {
     'kling': { name: '可灵 (Kling)', supportSingleImage: true, supportMultipleImages: false, supportFirstLastFrame: true, supportTextOnly: true, maxImages: 2 },
     'runway': { name: 'Runway Gen-3', supportSingleImage: true, supportMultipleImages: false, supportFirstLastFrame: true, supportTextOnly: true, maxImages: 2 },
     'pika': { name: 'Pika 1.0', supportSingleImage: true, supportMultipleImages: true, supportFirstLastFrame: false, supportTextOnly: true, maxImages: 4 },
-    'veo-3.1-fast-generate-001': { name: 'Google Veo', supportSingleImage: true, supportMultipleImages: false, supportFirstLastFrame: false, supportTextOnly: true, maxImages: 1 }
+    'veo-3.1-fast-generate-001': { name: 'Google Veo', supportSingleImage: true, supportMultipleImages: false, supportFirstLastFrame: false, supportTextOnly: true, maxImages: 1 },
+    'agnes-video-2.5-flash': { name: 'Agnes Video', supportSingleImage: true, supportMultipleImages: false, supportFirstLastFrame: true, supportTextOnly: true, maxImages: 1 }
 };
 
 // 默认兜底模型列表
@@ -941,6 +942,15 @@ const defaultVideoModels: VideoModelCapability[] = [
         supportSingleImage: true,       // 支持首帧图生视频
         supportMultipleImages: false,   // 暂不支持多图
         supportFirstLastFrame: false,   // 暂不支持首尾帧
+        supportTextOnly: true,          // 支持纯文生视频
+        maxImages: 1
+    },
+    {
+        id: 'agnes-video-2.5-flash',
+        name: 'Agnes Video',
+        supportSingleImage: true,       // 支持参考图生视频
+        supportMultipleImages: false,   // 暂不支持多图
+        supportFirstLastFrame: true,    // 支持首尾帧
         supportTextOnly: true,          // 支持纯文生视频
         maxImages: 1
     }

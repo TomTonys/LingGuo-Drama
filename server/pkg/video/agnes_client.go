@@ -83,11 +83,22 @@ func (c *AgnesClient) GenerateVideo(prompt string, opts ...VideoOption) (*VideoR
 		model = options.Model
 	}
 
+	// Agnes 仅支持 4-12 秒，对传入时长做钳制，避免非法值（如默认 3 秒）导致请求被拒
+	dur := options.Duration
+	switch {
+	case dur <= 0:
+		dur = 5
+	case dur < 4:
+		dur = 4
+	case dur > 12:
+		dur = 12
+	}
+
 	req := agnesCreateRequest{
 		Model:       model,
 		Prompt:      prompt,
 		Mode:        "text",
-		Seconds:     fmt.Sprintf("%d", options.Duration),
+		Seconds:     fmt.Sprintf("%d", dur),
 		Size:        "720P", // Flash 模型固定 720P
 		AspectRatio: options.AspectRatio,
 		N:           1,
