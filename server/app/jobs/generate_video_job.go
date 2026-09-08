@@ -65,6 +65,8 @@ type VideoAPIConfig struct {
 	RunwayKey      string
 	PikaBaseURL    string
 	PikaKey        string
+	AgnesBaseURL   string
+	AgnesKey       string
 	OpenAIBaseURL  string
 	OpenAIKey      string
 	VertexKey      string
@@ -101,6 +103,8 @@ func mapDBProvider(dbProvider string, modelName string) string {
 		return "pika"
 	case "minimax", "hailuo":
 		return "minimax"
+	case "agnes":
+		return "agnes"
 	default:
 		// 未知提供商时，尽量根据模型名推断，推断不出就兜底中转商
 		lowerModel := strings.ToLower(modelName)
@@ -131,6 +135,8 @@ func getProviderConfig(modelName string, adminID *uint64) (provider, baseURL, en
 					if m == finalModel {
 						if strings.Contains(finalModel, "doubao") || strings.Contains(finalModel, "seedance") {
 							endpoint = "/contents/generations/tasks"
+						} else if strings.Contains(finalModel, "agnes") {
+							endpoint = "/videos"
 						}
 						return mapDBProvider(*cfg.Provider, finalModel), *cfg.BaseUrl, endpoint, *cfg.ApiKey, finalModel
 					}
@@ -144,6 +150,8 @@ func getProviderConfig(modelName string, adminID *uint64) (provider, baseURL, en
 			finalModel = topCfg.Model[0] // 取数组第一个模型
 			if strings.Contains(finalModel, "doubao") || strings.Contains(finalModel, "seedance") {
 				endpoint = "/contents/generations/tasks"
+			} else if strings.Contains(finalModel, "agnes") {
+				endpoint = "/videos"
 			}
 		}
 
@@ -162,6 +170,8 @@ func getProviderConfig(modelName string, adminID *uint64) (provider, baseURL, en
 		RunwayKey:      config.GetString("ai.runway.api_key"),
 		PikaBaseURL:    config.GetString("ai.pika.base_url"),
 		PikaKey:        config.GetString("ai.pika.api_key"),
+		AgnesBaseURL:   config.GetString("ai.agnes.base_url"),
+		AgnesKey:       config.GetString("ai.agnes.api_key"),
 		OpenAIBaseURL:  config.GetString("ai.openai.base_url"),
 		OpenAIKey:      config.GetString("ai.openai.api_key"),
 		VertexKey:      config.GetString("ai.vertex.api_key"),
@@ -181,6 +191,9 @@ func getProviderConfig(modelName string, adminID *uint64) (provider, baseURL, en
 		return "pika", cfg.PikaBaseURL, endpoint, cfg.PikaKey, finalModel
 	} else if strings.Contains(lowerModel, "minimax") || strings.Contains(lowerModel, "hailuo") {
 		return "minimax", cfg.MinimaxBaseURL, endpoint, cfg.MinimaxKey, finalModel
+	} else if strings.Contains(lowerModel, "agnes") {
+		endpoint = "/videos"
+		return "agnes", cfg.AgnesBaseURL, endpoint, cfg.AgnesKey, finalModel
 	}
 
 	// 兜底默认使用 getgoapi 中转

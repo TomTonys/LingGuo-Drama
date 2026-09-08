@@ -43,6 +43,8 @@ docker compose up -d --build
 | `REDIS_PASSWORD` | Redis 密码 |
 | `OPENAI_API_KEY` / `GETGOAPI_API_KEY` | AI 服务密钥 |
 | `VIDEO_PROVIDER` | 默认视频生成提供商 |
+| `AGNES_API_KEY` / `AGNES_BASE_URL` / `AGNES_MODEL` | Agnes 视频生成（agnes-video-2.5-flash）密钥与地址 |
+| `AGNES_LLM_MODEL` / `AGNES_IMAGE_MODEL` | Agnes 生文（agnes-3.0-flash）与生图（agnes-image-2.5-flash）模型名 |
 
 ## 数据与文件持久化
 

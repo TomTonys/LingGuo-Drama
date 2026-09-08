@@ -62,6 +62,8 @@ func newProvider(cfg Config, client *http.Client) Provider {
 		return &DoubaoClient{Config: cfg, client: client}
 	case "vertex", "gcp":
 		return &VertexClient{Config: cfg, client: client}
+	case "agnes", "agnes-llm", "agnes-image":
+		return &AgnesClient{Config: cfg, client: client}
 	case "openai":
 		fallthrough
 	default:

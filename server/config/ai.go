@@ -68,6 +68,19 @@ func init() {
 				"base_url": config.Env("PIKA_BASE_URL", "https://api.pika.art"),
 				"api_key":  config.Env("PIKA_API_KEY", ""),
 			},
+
+			"agnes": map[string]interface{}{
+				"base_url": config.Env("AGNES_BASE_URL", "https://api.agnes-ai.cn/v1"),
+				"api_key":  config.Env("AGNES_API_KEY", ""),
+				"model":    config.Env("AGNES_MODEL", "agnes-video-2.5-flash"),
+			},
+
+			"agnes-llm": map[string]interface{}{
+				"base_url":    config.Env("AGNES_BASE_URL", "https://api.agnes-ai.cn/v1"),
+				"api_key":     config.Env("AGNES_API_KEY", ""),
+				"model":       config.Env("AGNES_LLM_MODEL", "agnes-3.0-flash"),
+				"image_model": config.Env("AGNES_IMAGE_MODEL", "agnes-image-2.5-flash"),
+			},
 		}
 	})
 }

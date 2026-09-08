@@ -281,6 +281,12 @@ func HandleGenerateShots(ctx context.Context, t *asynq.Task) error {
 		VertexKey:        config.GetString("ai.vertex.api_key"),
 		VertexModel:      config.GetString("ai.vertex.model"),
 		VertexImageModel: config.GetString("ai.vertex.image_model"),
+
+		// Agnes 配置 (生文/生图, OpenAI 兼容)
+		AgnesBaseURL:    config.GetString("ai.agnes.base_url"),
+		AgnesKey:        config.GetString("ai.agnes.api_key"),
+		AgnesModel:      config.GetString("ai.agnes-llm.model", "agnes-3.0-flash"),
+		AgnesImageModel: config.GetString("ai.agnes-llm.image_model", "agnes-image-2.5-flash"),
 	}
 
 	// 2. 尝试加载 AI 配置
@@ -348,6 +354,14 @@ func HandleGenerateShots(ctx context.Context, t *asynq.Task) error {
 			aiConfig.VertexKey = apiKey
 			if modelName != "" {
 				aiConfig.VertexModel = modelName
+			}
+
+		case "agnes", "agnes-llm", "agnes-image":
+			aiConfig.Provider = "agnes"
+			aiConfig.AgnesBaseURL = baseURL
+			aiConfig.AgnesKey = apiKey
+			if modelName != "" {
+				aiConfig.AgnesModel = modelName
 			}
 
 		default:

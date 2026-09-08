@@ -149,6 +149,8 @@ func NewClient(provider, baseURL, apiKey, model, endpoint, queryEndpoint string)
 		return NewVertexVideoClient(baseURL, apiKey, model), nil
 	case "getgoapi":
 		return NewGetGoAPIClient(baseURL, apiKey, model, endpoint, queryEndpoint), nil
+	case "agnes":
+		return NewAgnesClient(baseURL, apiKey, model, endpoint, queryEndpoint), nil
 	default:
 		return nil, fmt.Errorf("unsupported video provider: %s", provider)
 	}

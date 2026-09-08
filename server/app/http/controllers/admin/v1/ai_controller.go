@@ -816,6 +816,16 @@ func buildTestAiConfig(req TestConfigReq, serviceType string) openai.Config {
 			aiConfig.VertexModel = modelName
 		}
 
+	case "agnes", "agnes-llm", "agnes-image":
+		aiConfig.Provider = "agnes"
+		aiConfig.AgnesBaseURL = req.BaseURL
+		aiConfig.AgnesKey = req.APIKey
+		if serviceType == "image" {
+			aiConfig.AgnesImageModel = modelName
+		} else {
+			aiConfig.AgnesModel = modelName
+		}
+
 	default:
 		// 默认走 OpenAI 协议
 		aiConfig.Provider = "openai"
@@ -919,6 +929,9 @@ func (ctrl *AiController) TestVideoConfig(c *gin.Context) {
 		providerName = "vertex"
 	case "minimax", "hailuo":
 		providerName = "minimax"
+	case "agnes":
+		providerName = "agnes"
+		endpoint = "/videos"
 	case "openai", "runway", "pika":
 		// 这些名字可以直接透传给 video.NewClient，保持原样
 		providerName = providerName

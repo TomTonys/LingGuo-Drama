@@ -31,4 +31,10 @@ type Config struct {
 	VertexKey        string // API 密钥
 	VertexModel      string // 如 gemini-2.5-flash
 	VertexImageModel string // 如 imagen-3.0-generate-001
+
+	// Agnes 配置 (OpenAI 兼容的生文/生图)
+	AgnesBaseURL    string
+	AgnesKey        string
+	AgnesModel      string // 文本模型 (agnes-3.0-flash)
+	AgnesImageModel string // 生图模型 (agnes-image-2.5-flash)
 }

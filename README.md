@@ -161,7 +161,7 @@ VITE_API_URL_PREFIX=/admin/v1
 | `AI_PROVIDER` | 默认文本/图片模型提供商 |
 | `VIDEO_PROVIDER` | 默认视频生成提供商 |
 
-AI 服务相关 Key 可按实际 provider 填写，例如 `OPENAI_API_KEY`、`GETGOAPI_API_KEY`、`VOLCES_API_KEY`、`MINIMAX_API_KEY`。
+AI 服务相关 Key 可按实际 provider 填写，例如 `OPENAI_API_KEY`、`GETGOAPI_API_KEY`、`VOLCES_API_KEY`、`MINIMAX_API_KEY`、`AGNES_API_KEY`（生文/生图/生视频统一使用 `AGNES_API_KEY`，模型名分别由 `AGNES_LLM_MODEL`/`AGNES_IMAGE_MODEL`/`AGNES_MODEL` 指定）。
 
 ## 创作链路
 
