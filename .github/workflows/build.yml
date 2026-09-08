@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+"""
+@author: v_vxchliu
+@file: build.yml.py
+@time: 2026/9/8
+@contact: v_vxchliu@tencent.com
+@desc: 
+"""
+name: build-linux
+on: [workflow_dispatch, push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+      - name: Build
+        working-directory: server
+        run: |
+          go mod download
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags="-s -w" -o spiritfruit ./main.go
+      - uses: actions/upload-artifact@v4
+        with:
+          name: spiritfruit
+          path: server/spiritfruit
