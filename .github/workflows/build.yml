@@ -1,12 +1,3 @@
-#!/usr/bin/env python
-# -*- coding:utf-8 -*-
-"""
-@author: v_vxchliu
-@file: build.yml.py
-@time: 2026/9/8
-@contact: v_vxchliu@tencent.com
-@desc: 
-"""
 name: build-linux
 
 on:
